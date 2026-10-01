@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>I Put Myself in a Music Video — The Breakdown</title>
+<meta name="description" content="45 seconds, 30 shots, 179 render jobs, one digital double and a tiny AI crew. How I swapped myself into a music video with MiniMax H3 and ComfyUI.">
+<meta property="og:title" content="I Put Myself in a Music Video (and Never Went on Set)">
+<meta property="og:description" content="45 seconds. 30 shots. 179 render jobs. One digital double. The whole messy, fun breakdown.">
+<meta property="og:image" content="../media/v3/film_poster.jpg">
+<meta name="theme-color" content="#0a0a10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a10;--bg2:#12121b;--card:#16161f;--line:#2a2a3a;--pink:#ff3e9a;--lime:#c8ff3d;--cyan:#3de8ff;--red:#ff4d4d;--white:#f7f5f2;--muted:#a1a6b4}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:Inter,system-ui,sans-serif;font-size:18px;line-height:1.65;overflow-x:hidden}
+a{color:var(--lime)}
+img,video{display:block;max-width:100%}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+.narrow{max-width:720px}
+.mono{font-family:'JetBrains Mono',monospace}
+.anton{font-family:Anton,Impact,sans-serif;letter-spacing:.3px;font-weight:400}
+.marker{font-family:'Permanent Marker',cursive}
+.label{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:13px;letter-spacing:3px;text-transform:uppercase}
+.pill{display:inline-block;padding:6px 14px;border-radius:999px;font-weight:800;font-size:14px;letter-spacing:.5px}
+.pink{color:var(--pink)}.lime{color:var(--lime)}.cyan{color:var(--cyan)}.muted{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.grain{position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#bar{position:fixed;left:0;top:0;height:5px;width:0;background:linear-gradient(90deg,var(--pink),var(--lime));z-index:101}
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(10,10,16,.78);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:18px;align-items:center;height:56px;overflow-x:auto;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{color:var(--muted);text-decoration:none;font-family:'JetBrains Mono';font-size:12px;font-weight:700;letter-spacing:2px;white-space:nowrap}
+nav a:hover{color:var(--white)}
+nav .home{color:var(--lime)}
+/* hero */
+.hero{position:relative;padding:64px 0 40px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-20% -10% auto auto;width:720px;height:720px;background:radial-gradient(circle,rgba(255,62,154,.35),transparent 65%);filter:blur(10px)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.kicker{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:22px}
+.kicker .n{background:var(--lime);color:#0a0a10;padding:4px 10px;border-radius:8px}
+h1{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(54px,8.5vw,112px);line-height:.92;text-transform:uppercase}
+h1 .strike{position:relative;color:var(--muted)}
+h1 .strike:after{content:"";position:absolute;left:-2%;right:-2%;top:52%;height:.09em;background:var(--red);transform:rotate(-3deg)}
+.lede{font-size:21px;color:#d9d9e3;margin:26px 0 30px;max-width:560px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:14px;font-weight:800;text-decoration:none;font-size:16px}
+.btn.p{background:var(--pink);color:#fff}.btn.g{border:2px solid var(--line);color:var(--white)}
+.phone{position:relative;margin:0 auto;width:min(340px,80vw);aspect-ratio:9/16;border-radius:42px;padding:10px;background:linear-gradient(160deg,#2b2b3a,#111118);box-shadow:0 30px 80px rgba(255,62,154,.25),0 0 0 2px #333}
+.phone video{width:100%;height:100%;object-fit:cover;border-radius:34px;background:#000}
+.phone .tag{position:absolute;left:-24px;top:40px;transform:rotate(-8deg)}
+.phone .tag2{position:absolute;right:-30px;bottom:90px;transform:rotate(6deg)}
+.ticker{margin-top:56px;border-block:1px solid var(--line);overflow:hidden;white-space:nowrap;background:var(--bg2)}
+.ticker div{display:inline-block;padding:14px 0;animation:tick 32s linear infinite;font-family:Anton;font-size:28px;letter-spacing:1px}
+.ticker span{margin:0 28px}.ticker b{color:var(--lime);font-weight:400}
+@keyframes tick{to{transform:translateX(-50%)}}
+/* chapters */
+section.ch{padding:96px 0 40px;position:relative}
+.chhead{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.chhead .n{font-family:'JetBrains Mono';font-weight:800;background:var(--lime);color:#0a0a10;padding:4px 10px;border-radius:8px;font-size:14px}
+h2{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:clamp(40px,6vw,76px);line-height:.95;text-transform:uppercase;margin-bottom:22px}
+h3{font-family:Anton;font-weight:400;font-size:30px;letter-spacing:.5px;text-transform:uppercase}
+p+p{margin-top:16px}
+.big{font-size:22px;color:#e6e6ee}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+.cap{font-family:'JetBrains Mono';font-size:13px;color:var(--muted);margin-top:10px}
+/* checklist */
+.check{padding:28px 30px}
+.check li{list-style:none;display:flex;gap:14px;align-items:center;font-weight:800;font-size:22px;margin:10px 0}
+.check .b{width:34px;height:34px;border-radius:9px;background:var(--lime);color:#0a0a10;display:flex;align-items:center;justify-content:center;font-size:20px;flex:none}
+.check .x{background:var(--pink);color:#fff}
+/* auditions */
+.aud{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.aud .c{position:relative;border-radius:16px;overflow:hidden;border:2px solid #fff;background:#222;transition:transform .3s}
+.aud .c:nth-child(odd){transform:rotate(-2deg)}.aud .c:nth-child(even){transform:rotate(2deg)}
+.aud .c:hover{transform:rotate(0) scale(1.04);z-index:2}
+.aud img{aspect-ratio:3/2;object-fit:cover;width:100%;filter:grayscale(.55) brightness(.75)}
+.aud .nm{position:absolute;left:10px;bottom:10px}
+.stamp{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%) rotate(-12deg);font-family:Anton;font-size:28px;color:var(--red);border:4px solid var(--red);border-radius:10px;padding:2px 12px;background:rgba(10,10,16,.45);white-space:nowrap}
+.stamp.ok{color:var(--lime);border-color:var(--lime)}
+.firstrun{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center;margin-top:40px}
+.equation{display:grid;grid-template-columns:1.6fr auto .7fr auto 1fr;gap:16px;align-items:center;margin-top:44px}
+.equation .op{font-family:Anton;font-size:56px;color:var(--muted)}
+.equation .card{position:relative}
+.equation .card .pill{position:absolute;left:10px;bottom:10px}
+/* job card */
+.job{padding:26px;border:2px solid var(--lime);box-shadow:0 0 50px rgba(200,255,61,.15)}
+.job .row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.job pre{white-space:pre-wrap;font-family:'JetBrains Mono';font-size:15px;color:#e8e8f0;margin:14px 0;min-height:4.5em}
+.locks{display:flex;flex-wrap:wrap;gap:8px}
+.locks span{border:2px solid var(--pink);background:#2a1020;color:#ff9ccb;border-radius:999px;padding:4px 12px;font-weight:700;font-size:14px}
+/* flow diagram */
+.flow{position:relative;padding:20px 0}
+.flow svg{width:100%;height:auto}
+.node rect{fill:var(--card);stroke:var(--line);stroke-width:2}
+.node text{fill:var(--white);font-family:Anton;font-size:22px;letter-spacing:.5px}
+.node .s{font-family:'JetBrains Mono';font-size:12px;fill:var(--muted);letter-spacing:1px}
+.wire{fill:none;stroke:#3a3a52;stroke-width:3;stroke-dasharray:8 8;animation:dash 1.2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-32}}
+.packet{r:7}
+/* crew */
+.crew{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.crew .card img{width:100%;aspect-ratio:1;object-fit:cover}
+.crew .card div{padding:12px 16px 18px}
+.crew h3{font-size:26px}
+.loop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center;margin-top:30px;font-family:'JetBrains Mono';font-weight:800;font-size:14px}
+.loop span{padding:8px 14px;border-radius:10px;background:var(--card);border:1px solid var(--line)}
+.loop i{color:var(--lime);font-style:normal}
+.qc{padding:26px 28px;border:2px solid var(--pink);box-shadow:0 0 50px rgba(255,62,154,.18)}
+.qc li{list-style:none;font-weight:800;font-size:20px;margin:8px 0}.qc li:before{content:"✗  ";color:var(--red)}
+/* fails */
+.fail{margin-top:34px}
+.fail .tri{position:relative}
+.fail .tri video{width:100%;border-radius:16px;border:1px solid var(--line)}
+.fail .lbls{display:grid;grid-template-columns:repeat(3,1fr);margin-top:8px;text-align:center}
+.fail .lbls span{font-family:'JetBrains Mono';font-weight:800;font-size:12px;letter-spacing:2px}
+.fail h3 .num{color:var(--red)}
+.lesson{margin:60px auto 0;text-align:center}
+.lesson .old{font-family:Anton;font-size:clamp(34px,6vw,64px);color:var(--muted);position:relative;display:inline-block}
+.lesson .old:after{content:"";position:absolute;left:-3%;right:-3%;top:50%;height:8px;background:var(--red);transform:rotate(-2deg)}
+.lesson .new{font-family:Anton;font-size:clamp(46px,8vw,96px);color:var(--lime);line-height:.95;margin-top:10px}
+/* stats */
+.dots{display:grid;grid-template-columns:repeat(30,1fr);gap:5px;margin:26px 0 10px}
+.dots i{aspect-ratio:1;border-radius:50%;background:#222;transition:background .3s,transform .3s}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:26px}
+.stat{padding:24px}
+.stat .v{font-family:Anton;font-size:clamp(44px,6vw,72px);line-height:1}
+.stat .k{font-family:'JetBrains Mono';font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:8px}
+.tried{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}
+.tried .card{padding:20px 22px}
+.tried b{display:block;font-family:Anton;font-weight:400;font-size:22px;letter-spacing:.5px;margin-bottom:4px}
+.verdict{font-family:'JetBrains Mono';font-size:12px;font-weight:800;letter-spacing:2px}
+footer{padding:80px 0 60px;border-top:1px solid var(--line);margin-top:80px;color:var(--muted);font-size:15px}
+footer .anton{color:var(--white);font-size:48px}
+@media (max-width:860px){
+  .hero .wrap,.grid2,.firstrun{grid-template-columns:1fr}
+  .hero{padding-top:36px}
+  .aud,.crew{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .equation{grid-template-columns:1fr;text-align:center}.equation .op{font-size:40px}
+  .tried{grid-template-columns:1fr}
+  .dots{grid-template-columns:repeat(20,1fr)}
+  .phone .tag{left:-6px}.phone .tag2{right:-6px}
+}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.ticker div,.wire{animation:none}}
+</style>
+</head>
+<body>
+<div class="grain"></div><div id="bar"></div>
+<nav><div class="wrap">
+  <a class="home" href="#top">◉ DIGITAL DOUBLE</a>
+  <a href="#idea">01 IDEA</a><a href="#character">02 CHARACTER</a><a href="#shots">03 SHOTS</a><a href="#trick">04 TRICK</a><a href="#farm">05 FARM</a><a href="#crew">06 CREW</a><a href="#fails">07 FAILS</a><a href="#receipts">08 RECEIPTS</a>
+</div></nav>
+
+<header class="hero" id="top"><div class="wrap">
+  <div>
+    <div class="kicker"><span class="label n">THE BREAKDOWN</span><span class="label muted">≈ 8 min read · or 2:50 watch</span></div>
+    <h1>I put myself in a music video.<br><span class="strike">I was on set.</span> <span class="pink">I wasn't.</span></h1>
+    <p class="lede">45 seconds. 30 shots. 179 render jobs. One digital double, a tiny render farm, and a crew of AI agents that never once asked for a lunch break. Here's the whole messy, fun process.</p>
+    <div class="cta"><a class="btn p" href="#film">▶ Watch the 2:50 breakdown</a><a class="btn g" href="../">Read the long version</a></div>
+  </div>
+  <div id="film">
+    <div class="phone">
+      <video src="../media/v3/film_vertical.mp4" poster="../media/v3/film_poster.jpg" controls playsinline preload="metadata"></video>
+      <span class="pill tag" style="background:var(--lime);color:#0a0a10">sound on 🔊</span>
+      <span class="pill tag2" style="background:var(--pink);color:#fff">made in ComfyUI</span>
+    </div>
+  </div>
+</div>
+<div class="ticker"><div>
+  <span><b>45</b> SECONDS</span><span><b>30</b> SHOTS</span><span><b>179</b> JOBS</span><span><b>158</b> RENDERS</span><span><b>9.5H</b> GPU TIME</span><span><b>1</b> DIGITAL DOUBLE</span><span><b>4</b> AI AGENTS</span><span><b>0</b> DAYS ON SET</span>
+  <span><b>45</b> SECONDS</span><span><b>30</b> SHOTS</span><span><b>179</b> JOBS</span><span><b>158</b> RENDERS</span><span><b>9.5H</b> GPU TIME</span><span><b>1</b> DIGITAL DOUBLE</span><span><b>4</b> AI AGENTS</span><span><b>0</b> DAYS ON SET</span>
+</div></div>
+</header>
+
+<!-- 01 IDEA -->
+<section class="ch" id="idea"><div class="wrap">
+  <div class="chhead reveal"><span class="n">01</span><span class="label">THE IDEA</span></div>
+  <div class="grid2">
+    <div class="reveal">
+      <h2>Keep everything.<br><span class="pink">Swap the guy.</span></h2>
+      <p class="big">The pitch was one sentence: put me in the music video.</p>
+      <p>Not a face filter. Not a green screen. I wanted the actual camera moves, the dancing, the energy and my co-star exactly where they were, with one change: the guy in the scene becomes a version of me that belongs in that pink, loud, studded-leather world.</p>
+    </div>
+    <ul class="card check reveal">
+      <li class="label lime" style="font-size:13px">KEEP</li>
+      <li><span class="b">✓</span>camera moves</li>
+      <li><span class="b">✓</span>the dancing</li>
+      <li><span class="b">✓</span>the energy</li>
+      <li><span class="b">✓</span>my co-star</li>
+      <li class="label pink" style="font-size:13px;margin-top:18px">SWAP</li>
+      <li><span class="b x">⇄</span>the guy → me</li>
+    </ul>
+  </div>
+  <div class="reveal" style="margin-top:40px">
+    <video src="../media/source_vs_selected_45s.mp4" poster="../media/source_vs_selected_poster.jpg" controls playsinline preload="metadata" style="width:100%;border-radius:18px;border:1px solid var(--line)"></video>
+    <p class="cap">LEFT: THE ORIGINAL · RIGHT: MY DIGITAL DOUBLE · FULL 45 S, ORIGINAL AUDIO</p>
+  </div>
+</div></section>
+
+<!-- 02 CHARACTER -->
+<section class="ch" id="character"><div class="wrap">
+  <div class="chhead reveal"><span class="n">02</span><span class="label">THE CHARACTER</span></div>
+  <h2 class="reveal">Character <span class="lime">select</span></h2>
+  <p class="big narrow reveal">Step one: who's actually walking into this scene? I held auditions. All of them were me.</p>
+  <div class="aud reveal">
+    <div class="c"><img src="../media/v3/sheet_rockstar.webp" alt="Rock star character sheet" loading="lazy"><span class="stamp">TOO MUCH</span><span class="pill nm" style="background:#0a0a10;color:#fff">ROCK STAR</span></div>
+    <div class="c"><img src="../media/v3/sheet_hat.webp" alt="Studded hat character sheet" loading="lazy"><span class="stamp">TOO COWBOY</span><span class="pill nm" style="background:#0a0a10;color:#fff">THE HAT</span></div>
+    <div class="c"><img src="../media/v3/sheet_cap.webp" alt="Street cap character sheet" loading="lazy"><span class="stamp" style="color:var(--cyan);border-color:var(--cyan)">CLOSER…</span><span class="pill nm" style="background:#0a0a10;color:#fff">STREET CAP</span></div>
+    <div class="c"><img src="../media/v3/sheet_braids.webp" alt="Braids character sheet" loading="lazy"><span class="stamp">NAH</span><span class="pill nm" style="background:#0a0a10;color:#fff">BRAIDS</span></div>
+  </div>
+  <div class="firstrun">
+    <div class="reveal"><video src="../media/v3/first_run.mp4" autoplay muted loop playsinline style="width:100%;border-radius:18px;border:3px solid var(--pink)"></video><p class="cap">FIRST RUN · THE ROCK STAR LOOK, ACTUALLY IN THE SCENE</p></div>
+    <div class="reveal">
+      <h3>We started with <span class="pink">rock star</span></h3>
+      <p>Leather everything, glasses, maximum flair. It worked, and that was the problem: it felt like a costume. Then a studded hat went full cowboy. Tokyo street style with a backwards cap got closer. Braids? I tried them. Nah.</p>
+      <p>Where we landed: my own loose black hair with <b class="lime">silver streaks</b>, sunglasses, a tank top, tattoos and layered chains. Something I'd actually (almost) wear.</p>
+    </div>
+  </div>
+  <div class="equation reveal">
+    <div class="card"><img src="../media/v3/sheet_final.webp" alt="Final pink character sheet" loading="lazy"><span class="pill" style="background:var(--lime);color:#0a0a10">THE LOOK</span></div>
+    <div class="op">+</div>
+    <div class="card"><img src="../media/original_identity.jpg" alt="My original portrait" loading="lazy" style="aspect-ratio:3/4;object-fit:cover;width:100%"><span class="pill" style="background:var(--pink);color:#fff">THE FACE</span></div>
+    <div class="op">=</div>
+    <div class="card" style="border:2px solid var(--pink)"><video src="../media/v3/double_loop.mp4" autoplay muted loop playsinline style="aspect-ratio:3/4;object-fit:cover;width:100%"></video><span class="pill" style="background:#fff;color:#0a0a10">THE DOUBLE</span></div>
+  </div>
+  <p class="narrow reveal" style="margin-top:22px">The pink-studio character sheet locks the costume and hair (with and without glasses, because the glasses come off in some shots). My real portrait sits next to it so the styling can go wild while the face stays… actually mine.</p>
+</div></section>
+
+<!-- 03 SHOTS -->
+<section class="ch" id="shots"><div class="wrap">
+  <div class="chhead reveal"><span class="n">03</span><span class="label">THE SHOT LIST</span></div>
+  <div class="grid2">
+    <div class="reveal">
+      <h2>45 seconds is<br><span class="lime">30 shots</span></h2>
+      <p class="big">Forty-five seconds sounds short. It's not.</p>
+      <p>Drums. The floor. Close-ups. A whip pan that lasts eight frames. Every cut changes the rules, so we sliced the video at every edit and turned each shot into its own job: its own prompt, its own references, and a list of things that are <b class="pink">not allowed to change</b>.</p>
+      <p>Woman-only shots? Untouched. If a close-up lost my face, we fixed that close-up without throwing away a good take somewhere else. Directing one shot at a time.</p>
+    </div>
+    <div class="reveal"><img src="../media/v3/shot_grid.webp" alt="Thumbnails of all shots in the final cut" loading="lazy" style="border-radius:16px;border:1px solid var(--line)"><p class="cap">EVERY SHOT IN THE FINAL CUT</p></div>
+  </div>
+  <div class="card job reveal" style="margin-top:36px">
+    <div class="row"><span class="label lime">JOB · SHOT 24</span><span class="mono muted" style="font-size:13px">minimax-h3 · 1344×768 · 8 steps · ACC LoRA</span></div>
+    <pre id="typer" data-text="Replace the man on the left with the character from the sheet. Keep his singing, the flag waving and the camera. The woman stays exactly as she is."></pre>
+    <div class="label pink" style="margin-bottom:10px">🔒 NOT ALLOWED TO CHANGE</div>
+    <div class="locks"><span>the woman</span><span>the flags</span><span>camera angle</span><span>background</span><span>only 2 people</span></div>
+  </div>
+</div></section>
+
+<!-- 04 TRICK -->
+<section class="ch" id="trick"><div class="wrap">
+  <div class="chhead reveal"><span class="n">04</span><span class="label">THE TRICK</span></div>
+  <div class="grid2">
+    <div class="reveal" style="max-width:440px;margin:0 auto">
+      <div style="position:relative">
+        <video src="../media/v3/trick_stack.mp4" autoplay muted loop playsinline style="width:100%;border-radius:16px;border:2px solid var(--cyan)"></video>
+        <span class="pill" style="position:absolute;left:10px;top:10px;background:#fff;color:#0a0a10">① SOURCE</span>
+        <span class="pill" style="position:absolute;left:10px;top:34.3%;background:var(--cyan);color:#0a0a10">② NEGATIVE GUIDE</span>
+        <span class="pill" style="position:absolute;left:10px;top:67.6%;background:var(--pink);color:#fff">③ H3 RESULT</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <h2>The weird<br><span class="cyan">negative</span> video</h2>
+      <p class="big">Here's the cool part.</p>
+      <p><b>SAM3</b> finds the guy in every frame and flips the colors inside his outline. That trippy negative video becomes the motion guide for <b>MiniMax H3</b>: it says <i>exactly</i> who to redraw, while the original motion, timing and camera carry straight through.</p>
+      <p>Add the character sheet and my portrait as references, and H3 paints me into the gap.</p>
+      <p class="muted">Think of the mask as the most literal stage direction ever written: <i>this</i> person. If it points at the wrong person, you get a gorgeous, completely wrong take. (Foreshadowing.)</p>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 FARM -->
+<section class="ch" id="farm"><div class="wrap">
+  <div class="chhead reveal"><span class="n">05</span><span class="label">THE RENDER FARM</span></div>
+  <h2 class="reveal">A tiny farm,<br><span class="lime">run from the couch</span></h2>
+  <p class="big narrow reveal">Rendering thirty shots, over and over, is a lot for one graphics card.</p>
+  <div class="flow reveal">
+    <svg viewBox="0 0 1000 470" role="img" aria-label="Phone and PC send jobs through Tensor Master and Pocket AI to a dispatcher queue, which feeds a local RTX 3090 and rented RTX 5090s">
+      <defs><linearGradient id="gp" x1="0" x2="1"><stop offset="0" stop-color="#ff3e9a"/><stop offset="1" stop-color="#c8ff3d"/></linearGradient></defs>
+      <path id="w1" class="wire" d="M190 70 L370 70"/><path id="w2" class="wire" d="M630 70 C700 70 700 210 600 210"/>
+      <path id="w3" class="wire" d="M420 250 C300 300 170 320 170 380"/><path id="w4" class="wire" d="M500 250 L500 380"/><path id="w5" class="wire" d="M580 250 C700 300 830 320 830 380"/>
+      <g class="node"><rect x="20" y="30" width="170" height="80" rx="16"/><text x="105" y="68" text-anchor="middle">📱 + 💻</text><text class="s" x="105" y="92" text-anchor="middle">PHONE + PC</text></g>
+      <g class="node"><rect x="370" y="25" width="260" height="90" rx="16" style="stroke:#c8ff3d"/><text x="500" y="62" text-anchor="middle">TENSOR MASTER</text><text x="500" y="92" text-anchor="middle" style="fill:#c8ff3d">POCKET AI</text></g>
+      <g class="node"><rect x="370" y="170" width="260" height="80" rx="16" style="stroke:#3de8ff"/><text x="500" y="205" text-anchor="middle" style="fill:#3de8ff">DISPATCHER</text><text class="s" x="500" y="230" text-anchor="middle">ONE SHARED QUEUE</text></g>
+      <g class="node"><rect x="60" y="380" width="220" height="80" rx="16"/><text x="170" y="415" text-anchor="middle" style="fill:#c8ff3d">RTX 3090</text><text class="s" x="170" y="440" text-anchor="middle">HOME · LOCAL</text></g>
+      <g class="node"><rect x="390" y="380" width="220" height="80" rx="16"/><text x="500" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="500" y="440" text-anchor="middle">RENTED · VAST</text></g>
+      <g class="node"><rect x="720" y="380" width="220" height="80" rx="16"/><text x="830" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="830" y="440" text-anchor="middle">RENTED · VAST</text></g>
+      <circle class="packet" r="7" fill="#c8ff3d"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
+      <circle class="packet" r="7" fill="#c8ff3d"><animateMotion dur="1.8s" repeatCount="indefinite" begin=".4s"><mpath href="#w2"/></animateMotion></circle>
+      <circle class="packet" r="7" fill="#ff3e9a"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#w3"/></animateMotion></circle>
+      <circle class="packet" r="7" fill="#ff3e9a"><animateMotion dur="1.2s" repeatCount="indefinite" begin=".3s"><mpath href="#w4"/></animateMotion></circle>
+      <circle class="packet" r="7" fill="#ff3e9a"><animateMotion dur="1.5s" repeatCount="indefinite" begin=".7s"><mpath href="#w5"/></animateMotion></circle>
+    </svg>
+  </div>
+  <div class="grid2" style="align-items:start">
+    <div class="reveal"><p><b>Tensor Master</b> and <b>Pocket AI</b> are my own front ends for ComfyUI. They feed one dispatcher, and every machine pulls jobs from the same queue: my <b class="lime">RTX 3090</b> at home plus rented <b class="cyan">RTX 5090s</b> on Vast. Adding capacity is meant to be a one- or two-click thing: prepared profiles bring the models and environment along, so I'm not rebuilding a ComfyUI box by hand every time I rent a GPU.</p></div>
+    <div class="reveal"><p>And the whole thing works from my phone. Check the queue, watch a worker, look at a returned take, ask for a repair, add capacity. From the couch. 🛋️</p><p class="muted">Rentals have an idle cutoff and a max lifetime so nothing keeps billing after I walk away. Which also means the agents need the next job ready <i>before</i> a worker goes idle.</p></div>
+  </div>
+</div></section>
+
+<!-- 06 CREW -->
+<section class="ch" id="crew"><div class="wrap">
+  <div class="chhead reveal"><span class="n">06</span><span class="label">THE AI CREW</span></div>
+  <h2 class="reveal">Then I hired a crew.<br><span class="pink">They're agents.</span></h2>
+  <p class="big narrow reveal">One agent doing everything in order was a bottleneck. A rented GPU can finish its work while everyone's still staring at yesterday's problem. So: four roles, shared production notes, me in the director's chair.</p>
+  <div class="crew">
+    <div class="card reveal"><img src="../media/v3/coord.webp" alt="Coordinator robot" loading="lazy"><div><h3>Coordinator</h3><p class="muted mono" style="font-size:13px">keeps the shot list, my latest notes and the selected takes</p></div></div>
+    <div class="card reveal"><img src="../media/v3/prep.webp" alt="Prep robot" loading="lazy"><div><h3>Prep</h3><p class="muted mono" style="font-size:13px">turns notes into prompts + references, queues the jobs</p></div></div>
+    <div class="card reveal"><img src="../media/v3/farm.webp" alt="Farm monitor robot" loading="lazy"><div><h3>Farm monitor</h3><p class="muted mono" style="font-size:13px">babysits the machines: pickup, progress, failures</p></div></div>
+    <div class="card reveal"><img src="../media/v3/qc.webp" alt="QC robot" loading="lazy"><div><h3>QC</h3><p class="muted mono" style="font-size:13px">checks the frames and writes very specific notes</p></div></div>
+  </div>
+  <div class="grid2" style="margin-top:36px">
+    <div class="card qc reveal">
+      <div class="label pink">QC REPORT · TAKE 1</div>
+      <div class="anton" style="font-size:44px;margin:4px 0 8px">REJECTED</div>
+      <ul><li>Face drifting back to the original actor?</li><li>A second guy in the background?</li><li>Bracelet turned into a sleeve?</li><li>Glasses on the wrong person?</li></ul>
+    </div>
+    <div class="reveal">
+      <p>QC went frame by frame on anything headed for the edit. Every problem became a note for Prep. Sometimes the fix was a sharper prompt. Sometimes a better reference. Sometimes the guide itself was wrong, and no amount of persuasive wording would save it.</p>
+      <div class="loop"><span>🎬 my direction</span><i>→</i><span>prep</span><i>→</i><span>render</span><i>→</i><span>QC</span><i>→</i><span class="lime">take 2</span><i>↺</i></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 07 FAILS -->
+<section class="ch" id="fails"><div class="wrap">
+  <div class="chhead reveal"><span class="n">07</span><span class="label">THE FAILS</span></div>
+  <h2 class="reveal">Yeah, there were <span style="color:var(--red)">fails</span> 💀</h2>
+  <div class="grid2" style="align-items:start">
+    <div class="fail reveal">
+      <h3><span class="num">#1</span> The third guy</h3>
+      <p>In one whip pan the mask grabbed the wrong person, and the AI just… added me as a <b>third</b> performer between the original two. We accidentally cast an extra. A hand-tracked mask on the man on the left fixed it, and the pan survived.</p>
+      <div class="tri" style="margin-top:14px"><video src="../media/comparison_29.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px"></video><div class="lbls"><span>SOURCE</span><span style="color:var(--red)">REJECTED</span><span class="lime">FIXED</span></div></div>
+    </div>
+    <div class="fail reveal">
+      <h3><span class="num">#2</span> The ghost</h3>
+      <p>In a dark shot the mask vanished for a few frames, so I flickered in and out like a ghost and bits of the original costume leaked through. Filling the nine empty masks gave us a steady take.</p>
+      <div class="tri" style="margin-top:14px"><video src="../media/comparison_20.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px"></video><div class="lbls"><span>SOURCE</span><span style="color:var(--red)">REJECTED</span><span class="lime">FIXED</span></div></div>
+    </div>
+    <div class="fail reveal">
+      <h3><span class="num">#3</span> The hidden cut</h3>
+      <p>One "shot" secretly contained a cut from a duo to a solo singer. The model happily carried the woman and the drum kit into the solo part. Splitting it at the internal cut and generating both halves fixed the scene.</p>
+      <div class="tri" style="margin-top:14px"><video src="../media/comparison_21.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px"></video><div class="lbls"><span>SOURCE</span><span style="color:var(--red)">REJECTED</span><span class="lime">FIXED</span></div></div>
+    </div>
+    <div class="fail reveal">
+      <h3><span class="num">#4</span> The face fight</h3>
+      <p>Too much "match the original expression" and the model rebuilt the original actor's face on my character. Loosening that and leaning on likeness kept me recognizable, with the performance still borrowed.</p>
+      <div class="tri" style="margin-top:14px"><video src="../media/comparison_13.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px"></video><div class="lbls"><span>SOURCE</span><span style="color:var(--red)">REJECTED</span><span class="lime">FIXED</span></div></div>
+    </div>
+  </div>
+  <div class="lesson reveal"><div class="old">A FANCIER PROMPT</div><div class="new">FIX WHAT YOU<br>FEED THE MODEL</div></div>
+
+  <h3 class="reveal" style="margin-top:70px">Stuff we tried that didn't make the cut</h3>
+  <div class="tried">
+    <div class="card reveal"><b>Character-swap LoRA</b><span class="verdict" style="color:var(--red)">NOT DEFAULT</span><p class="muted" style="font-size:16px;margin-top:6px">Tested with and without. No clear enough likeness boost.</p></div>
+    <div class="card reveal"><b>Face-only refine</b><span class="verdict" style="color:var(--red)">TOO FIDDLY</span><p class="muted" style="font-size:16px;margin-top:6px">Crop the face, regenerate, merge back. Pose, glasses and seams fought us.</p></div>
+    <div class="card reveal"><b>Slow-motion guide</b><span class="verdict" style="color:var(--red)">EXPENSIVE</span><p class="muted" style="font-size:16px;margin-top:6px">More room for the performance, but more frames, memory and waiting.</p></div>
+    <div class="card reveal"><b>Original-color guide</b><span class="verdict" style="color:var(--cyan)">SOMETIMES</span><p class="muted" style="font-size:16px;margin-top:6px">Saved one take, then added me instead of replacing him in the pan.</p></div>
+  </div>
+</div></section>
+
+<!-- 08 RECEIPTS -->
+<section class="ch" id="receipts"><div class="wrap">
+  <div class="chhead reveal"><span class="n">08</span><span class="label">THE RECEIPTS</span></div>
+  <h2 class="reveal">Final <span class="lime">tally</span></h2>
+  <div class="dots reveal" id="dots" aria-label="179 jobs: 158 done, 18 cancelled, 3 failed"></div>
+  <p class="mono muted reveal" style="font-size:13px"><b class="lime">●</b> 158 done &nbsp; <b style="color:#777">●</b> 18 cancelled &nbsp; <b style="color:var(--red)">●</b> 3 failed</p>
+  <div class="stats">
+    <div class="card stat reveal"><div class="v" data-count="179">0</div><div class="k">jobs submitted</div></div>
+    <div class="card stat reveal"><div class="v lime" data-count="158">0</div><div class="k">finished renders</div></div>
+    <div class="card stat reveal"><div class="v" data-count="9.5" data-suffix="h">0</div><div class="k">summed GPU time</div></div>
+    <div class="card stat reveal"><div class="v pink">~$6–8</div><div class="k">rented compute</div></div>
+  </div>
+  <p class="narrow reveal" style="margin-top:26px">Shot 11 was the diva: 11 completed takes. Peak concurrency was two workers. About 6h50m of that GPU time ran on my 3090 at home and 2h48m on rented 5090s.</p>
+  <p class="cap reveal">Counts are recorded jobs across tests and earlier versions, not clips in the final cut. Rental cost is modeled from recorded rates × lifetime (about $6.25, up to ~$7.87 with one uncertain rental), not an invoice. GPU time is summed per-job duration, not wall clock.</p>
+</div></section>
+
+<!-- OUTRO -->
+<section class="ch" style="text-align:center"><div class="wrap">
+  <h2 class="reveal">One idea.<br><span class="pink">A digital double,</span><br>a tiny render farm,<br><span class="lime">and an AI crew.</span></h2>
+  <p class="big narrow reveal" style="margin:0 auto">I set out to put myself in a music video. Somewhere along the way I accidentally built a small studio around it.</p>
+  <div class="cta reveal" style="justify-content:center;margin-top:30px"><a class="btn p" href="#film">▶ Watch it again</a><a class="btn g" href="../">The long, detailed version</a></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="anton">DIRECTED BY MAUNG</div>
+  <p style="margin-top:14px">Made with ComfyUI · MiniMax H3 · SAM3 · Qwen Image · Tensor Master · Pocket AI. The breakdown video's narration is an AI-generated voice (Qwen3-TTS voice design), not a clone of anyone; its lo-fi bed is AI-generated (MiniMax Music 3, vocals removed).</p>
+  <p>The source performance is used as context for this character-replacement experiment. No ownership of the original music or footage is claimed. Comparisons show actual source footage and actual takes.</p>
+</div></footer>
+
+<script>
+// scroll progress + reveal
+const bar=document.getElementById('bar');
+addEventListener('scroll',()=>{const h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'},{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);onIn(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// dots
+const dots=document.getElementById('dots');for(let i=0;i<179;i++){const d=document.createElement('i');dots.appendChild(d)}
+function onIn(el){
+  if(el.id==='dots'){[...dots.children].forEach((d,i)=>setTimeout(()=>{d.style.background=i<158?'var(--lime)':i<176?'#777':'var(--red)';d.style.transform='scale(1.15)';setTimeout(()=>d.style.transform='',200)},i*8))}
+  el.querySelectorAll('[data-count]').forEach(n=>{const to=+n.dataset.count,suf=n.dataset.suffix||'',dec=to%1?1:0,t0=performance.now();
+    (function f(t){const k=Math.min(1,(t-t0)/1200),v=to*(1-Math.pow(1-k,3));n.textContent=v.toFixed(dec)+suf;if(k<1)requestAnimationFrame(f)})(t0)});
+  const ty=el.querySelector('#typer');if(ty){const s=ty.dataset.text;let i=0;const iv=setInterval(()=>{ty.textContent=s.slice(0,++i)+(i<s.length?'▍':'');if(i>=s.length)clearInterval(iv)},28)}
+}
+</script>
+</body>
+</html>
