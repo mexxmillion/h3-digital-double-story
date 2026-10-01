@@ -159,7 +159,7 @@ footer .anton{color:var(--white);font-size:48px}
 
 <header class="hero" id="top"><div class="wrap">
   <div>
-    <div class="kicker"><span class="label n">THE BREAKDOWN</span><span class="label muted">≈ 8 min read · or 3 min watch</span></div>
+    <div class="kicker"><span class="label n">THE BREAKDOWN</span><span class="label muted">≈ 9 min read · or 3 min watch</span></div>
     <h1>I put myself in a music video.<br><span class="strike">I was on set.</span> <span class="pink">I wasn't.</span></h1>
     <p class="lede">45 seconds. 30 shots. 179 render jobs. One digital double, a tiny render farm, and a crew of AI agents that never once asked for a lunch break. Here's the whole messy, fun process.</p>
     <div class="cta"><a class="btn p" href="#film">▶ Watch the 3-min breakdown</a><a class="btn g" href="../">Read the long version</a></div>
@@ -353,6 +353,25 @@ footer .anton{color:var(--white);font-size:48px}
       <div class="tri" style="margin-top:14px"><video src="../media/comparison_13.mp4" autoplay muted loop playsinline style="width:100%;border-radius:12px"></video><div class="lbls"><span>SOURCE</span><span style="color:var(--red)">REJECTED</span><span class="lime">FIXED</span></div></div>
     </div>
   </div>
+
+  <div class="grid2" style="margin-top:80px;align-items:center">
+    <div class="reveal" style="max-width:440px;margin:0 auto;width:100%">
+      <div style="position:relative">
+        <video src="../media/v3/boss_stack.mp4" autoplay muted loop playsinline style="width:100%;border-radius:16px;border:2px solid var(--lime)"></video>
+        <span class="pill" style="position:absolute;left:10px;top:10px;background:#fff;color:#0a0a10">ORIGINAL</span>
+        <span class="pill" style="position:absolute;left:10px;top:34.3%;background:var(--red);color:#fff">COMMERCIAL · GENJUTSU</span>
+        <span class="pill" style="position:absolute;left:10px;top:67.6%;background:var(--lime);color:#0a0a10">OURS · TAKE 11</span>
+      </div>
+      <p class="cap">SAME SHOT, SAME MOMENT · HALF SPEED · SILENT LOOP</p>
+    </div>
+    <div class="reveal">
+      <div class="label lime">BOSS LEVEL</div>
+      <h2 style="margin-top:10px">She takes<br><span class="lime">my sunglasses</span></h2>
+      <p class="big">The hardest shot in the whole video is two seconds long.</p>
+      <p>In the original, my co-star pulls the glasses off his face mid-performance. Swap the guy, keep the handoff, keep her, keep the room. It took <b class="lime">11 takes</b>.</p>
+      <p>For comparison I ran the same source through <b>Genjutsu</b> on Higgsfield, a commercial model. It left the glasses on his face, recast my co-star with dark hair, and quietly swapped the whole set and its colors. Pretty video. Wrong scene.</p>
+    </div>
+  </div>
   <div class="lesson reveal"><div class="old">A FANCIER PROMPT</div><div class="new">FIX WHAT YOU<br>FEED THE MODEL</div></div>
 
   <h3 class="reveal" style="margin-top:70px">Stuff we tried that didn't make the cut</h3>
@@ -376,7 +395,12 @@ footer .anton{color:var(--white);font-size:48px}
     <div class="card stat reveal"><div class="v" data-count="9.5" data-suffix="h">0</div><div class="k">summed GPU time</div></div>
     <div class="card stat reveal"><div class="v pink">~$6–8</div><div class="k">rented compute</div></div>
   </div>
-  <p class="narrow reveal" style="margin-top:26px">Shot 11 was the diva: 11 completed takes. Peak concurrency was two workers. About 6h50m of that GPU time ran on my 3090 at home and 2h48m on rented 5090s.</p>
+  <div class="card reveal" style="margin-top:16px;padding:22px 26px;border:2px solid var(--red);background:#1d0a10;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="font-size:52px">🔥</div>
+    <div><div class="anton" style="font-size:clamp(30px,4vw,44px);line-height:1">1 week of AI agent tokens. <span style="color:var(--red)">Gone in 1 night.</span></div>
+    <p class="muted" style="font-size:16px;margin-top:6px">The cost nobody puts in the GPU math: the crew ran all night, and my whole weekly token budget went with it.</p></div>
+  </div>
+  <p class="narrow reveal" style="margin-top:26px">Shot 11 (the star glasses) logged 11 completed takes; the sunglasses handoff in shot 3 took 11 submissions. Peak concurrency was two workers. About 6h50m of that GPU time ran on my 3090 at home and 2h48m on rented 5090s.</p>
   <p class="cap reveal">Counts are recorded jobs across tests and earlier versions, not clips in the final cut. Rental cost is modeled from recorded rates × lifetime (about $6.25, up to ~$7.87 with one uncertain rental), not an invoice. GPU time is summed per-job duration, not wall clock.</p>
 </div></section>
 
