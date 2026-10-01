@@ -40,17 +40,21 @@ The QC work went down to individual frames on the candidates being considered fo
 
 Those observations became the next set of notes for the preparation agent. Sometimes the answer was a more specific prompt. Sometimes it was a better reference image. Sometimes the guide itself was wrong, and no amount of persuasive wording would fix it. The next job needed a different input.
 
-A render farm I could direct from my PC and phone
+Tensor Master and Pocket AI made the farm part of my studio
 
-My local RTX 3090 remained part of the production. When I wanted more capacity, I rented RTX 5090 workers and brought them into the same process through PocketAI and Tensor Master, my custom dispatcher setup.
+Tensor Master and Pocket AI are the custom front ends I use around ComfyUI. ComfyUI remains the place where the generation workflow lives, with its nodes, models, and settings. The front ends give me a way to direct that work through a shared dispatcher pool: see what is queued, see which machines are available, and send jobs to local or rented GPUs without managing every machine separately.
 
-The dispatcher connected the creative work to the available machines. Jobs could go to the local worker or a rented worker using the configured profiles and images. The ComfyUI graphs were still there to inspect, while the dispatch layer handled getting work onto the farm.
+The idea is to make adding capacity a one- or two-click operation once the profiles are configured. If my local card is occupied or the shot list is growing, I can bring in a rental worker—or several—and put them to work alongside it. I do not have to choose between an entirely local setup and an entirely cloud setup. My own machine can keep rendering while rented workers take other shots from the pool.
 
-I used my PC and phone to monitor progress and direct the agents. I could look at a take and leave the kind of note I would give in an edit session: the face is wrong, keep those glasses, the hair needs to match, that shot is good enough, move on. When more capacity was useful, I could rent another GPU and add it to the production.
+The broader setup is designed to bring together providers such as Vast AI and RunPod, as well as my own custom workers. For this particular video, we used the local RTX 3090 and rented RTX 5090 workers on Vast AI. That distinction matters: the platform gives me more places to find capacity, while the production records tell us which machines actually made these takes.
 
-It was not effortless. We had idle machines, interrupted jobs, and a full disk that interfered with returning results. Those moments made the monitoring role essential. An available GPU only helps when a useful job is ready for it and the finished footage comes back safely.
+Profiles and prepared images take care of another part of the job: giving a new worker the environment and models it needs. Instead of rebuilding a ComfyUI machine by hand and dragging model files around every time I rent a GPU, I can provision it from the selected setup. It is a way of carrying the required working environment onto another machine. Downloads and startup still take time, but they become part of deployment rather than another manual production chore.
 
-The intention was to keep the work moving in parallel: prepare the next takes while the current ones render, review completed takes while other shots are running, and feed the review notes back into the queue.
+I can direct this from my phone as well as my PC. I can check the queue, follow a worker, look at a returned take, ask the agents for a repair, or add capacity when the next batch is ready. The phone becomes a small production desk: the creative decisions and the farm controls are close enough together that I can act on a note without sitting in front of every render machine.
+
+The rental controls also include a set maximum lifetime and an idle cutoff. Those are practical backstops for paid compute: a worker should not stay rented indefinitely because I have walked away or the queue has emptied. They also make timing important. The preparation agent needs useful jobs ready, and the farm-monitoring agent needs to notice when a worker is waiting, failing, or not returning its output. In this experiment, idle terminations showed why those controls and the agents need to work together.
+
+That is what made Tensor Master and Pocket AI instrumental here. They connected the ComfyUI workflow, the agent crew, and the machines into one production process I could direct. The aim was to make good use of both my local GPU and the rented farm: prepare the next takes while current ones render, review finished footage while other jobs run, and turn my notes into the next submission. We did not achieve perfect utilization throughout, but the setup made that shared way of working possible.
 
 The takes that taught us how to direct the model
 
