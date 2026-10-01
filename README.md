@@ -2,7 +2,7 @@
 
 An illustrated artist production story about character replacement with MiniMax H3, a custom dispatcher, local and rented GPUs, and an agent crew.
 
-The new artist draft is `site/index.html`; the earlier account is preserved in `site/production_article.html`. Actual comparison videos, frame grabs and character references are included. No ComfyUI source, credentials, job databases or internal machine paths are included.
+The casual visual breakdown (vertical film + chapters) is `site/breakdown/index.html`, with its media in `site/media/v3/`. The artist draft is `site/index.html`; the earlier account is preserved in `site/production_article.html`. Actual comparison videos, frame grabs and character references are included. No ComfyUI source, credentials, job databases or internal machine paths are included.
 
 ## GitHub Pages
 
