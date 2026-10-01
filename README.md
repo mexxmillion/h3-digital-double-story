@@ -4,7 +4,13 @@ An illustrated artist production story about character replacement with MiniMax 
 
 The new artist draft is `site/index.html`; the earlier account is preserved in `site/production_article.html`. Actual comparison videos, frame grabs and character references are included. No ComfyUI source, credentials, job databases or internal machine paths are included.
 
-## Cloudflare Pages
+## GitHub Pages
+
+Public site: https://mexxmillion.github.io/h3-digital-double-story/
+
+Pages publishes the root of `gh-pages`. The authoring files remain in `site/` on `main`. After an update, commit and push main, then publish with `git subtree push --prefix site origin gh-pages`.
+
+## Cloudflare Pages alternative
 
 Connect this repository through Workers & Pages → Create → Pages → Import an existing Git repository.
 
