@@ -280,16 +280,16 @@ footer .anton{color:var(--white);font-size:48px}
   <h2 class="reveal">A tiny farm,<br><span class="lime">run from the couch</span></h2>
   <p class="big narrow reveal">Rendering thirty shots, over and over, is a lot for one graphics card.</p>
   <div class="flow reveal">
-    <svg viewBox="0 0 1000 470" role="img" aria-label="Phone and PC send jobs through Tensor Master and Pocket AI to a dispatcher queue, which feeds a local RTX 3090 and rented RTX 5090s">
+    <svg viewBox="0 0 1000 470" role="img" aria-label="Phone and PC drive Pocket AI, the ComfyUI front end, which sends jobs to Tensor Master, the dispatcher and GPU rental scheduler, feeding a local RTX 3090 and rented RTX 5090s">
       <defs><linearGradient id="gp" x1="0" x2="1"><stop offset="0" stop-color="#ff3e9a"/><stop offset="1" stop-color="#c8ff3d"/></linearGradient></defs>
-      <path id="w1" class="wire" d="M190 70 L370 70"/><path id="w2" class="wire" d="M630 70 C700 70 700 210 600 210"/>
+      <path id="w1" class="wire" d="M190 70 L350 70"/><path id="w2" class="wire" d="M650 70 C720 70 720 210 670 210"/>
       <path id="w3" class="wire" d="M420 250 C300 300 170 320 170 380"/><path id="w4" class="wire" d="M500 250 L500 380"/><path id="w5" class="wire" d="M580 250 C700 300 830 320 830 380"/>
       <g class="node"><rect x="20" y="30" width="170" height="80" rx="16"/><text x="105" y="68" text-anchor="middle">📱 + 💻</text><text class="s" x="105" y="92" text-anchor="middle">PHONE + PC</text></g>
-      <g class="node"><rect x="370" y="25" width="260" height="90" rx="16" style="stroke:#c8ff3d"/><text x="500" y="62" text-anchor="middle">TENSOR MASTER</text><text x="500" y="92" text-anchor="middle" style="fill:#c8ff3d">POCKET AI</text></g>
-      <g class="node"><rect x="370" y="170" width="260" height="80" rx="16" style="stroke:#3de8ff"/><text x="500" y="205" text-anchor="middle" style="fill:#3de8ff">DISPATCHER</text><text class="s" x="500" y="230" text-anchor="middle">ONE SHARED QUEUE</text></g>
+      <g class="node"><rect x="350" y="25" width="300" height="90" rx="16" style="stroke:#c8ff3d"/><text x="500" y="64" text-anchor="middle" style="fill:#c8ff3d">POCKET AI</text><text class="s" x="500" y="92" text-anchor="middle">COMFYUI FRONT END · WORKFLOWS</text></g>
+      <g class="node"><rect x="330" y="170" width="340" height="80" rx="16" style="stroke:#3de8ff"/><text x="500" y="205" text-anchor="middle" style="fill:#3de8ff">TENSOR MASTER</text><text class="s" x="500" y="230" text-anchor="middle">DISPATCHER · SCHEDULER · GPU RENTAL</text></g>
       <g class="node"><rect x="60" y="380" width="220" height="80" rx="16"/><text x="170" y="415" text-anchor="middle" style="fill:#c8ff3d">RTX 3090</text><text class="s" x="170" y="440" text-anchor="middle">HOME · LOCAL</text></g>
-      <g class="node"><rect x="390" y="380" width="220" height="80" rx="16"/><text x="500" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="500" y="440" text-anchor="middle">RENTED · VAST</text></g>
-      <g class="node"><rect x="720" y="380" width="220" height="80" rx="16"/><text x="830" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="830" y="440" text-anchor="middle">RENTED · VAST</text></g>
+      <g class="node"><rect x="390" y="380" width="220" height="80" rx="16" style="stroke:#3de8ff;stroke-dasharray:8 6"/><text x="500" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="500" y="440" text-anchor="middle">RENTED · VAST</text></g>
+      <g class="node"><rect x="720" y="380" width="220" height="80" rx="16" style="stroke:#3de8ff;stroke-dasharray:8 6"/><text x="830" y="415" text-anchor="middle" style="fill:#3de8ff">RTX 5090</text><text class="s" x="830" y="440" text-anchor="middle">RENTED · VAST</text></g>
       <circle class="packet" r="7" fill="#c8ff3d"><animateMotion dur="1.6s" repeatCount="indefinite"><mpath href="#w1"/></animateMotion></circle>
       <circle class="packet" r="7" fill="#c8ff3d"><animateMotion dur="1.8s" repeatCount="indefinite" begin=".4s"><mpath href="#w2"/></animateMotion></circle>
       <circle class="packet" r="7" fill="#ff3e9a"><animateMotion dur="1.5s" repeatCount="indefinite"><mpath href="#w3"/></animateMotion></circle>
@@ -298,7 +298,7 @@ footer .anton{color:var(--white);font-size:48px}
     </svg>
   </div>
   <div class="grid2" style="align-items:start">
-    <div class="reveal"><p><b>Tensor Master</b> and <b>Pocket AI</b> are my own front ends for ComfyUI. They feed one dispatcher, and every machine pulls jobs from the same queue: my <b class="lime">RTX 3090</b> at home plus rented <b class="cyan">RTX 5090s</b> on Vast. Adding capacity is meant to be a one- or two-click thing: prepared profiles bring the models and environment along, so I'm not rebuilding a ComfyUI box by hand every time I rent a GPU.</p></div>
+    <div class="reveal"><p>So I built two apps. <b class="lime">Pocket AI</b> is my ComfyUI front end: every workflow (H3 video, Qwen Image, Krea 2, voice) in one place. <b class="cyan">Tensor Master</b> is the dispatcher: it queues the jobs, schedules them onto whatever GPU is free, and has GPU rental built in. My <b class="lime">RTX 3090</b> at home plus rented <b class="cyan">RTX 5090s</b> on Vast all pull from one queue. Renting is meant to be a one- or two-click thing: prepared profiles bring the models and environment along, so I'm not rebuilding a ComfyUI box by hand every time.</p></div>
     <div class="reveal"><p>And the whole thing works from my phone. Check the queue, watch a worker, look at a returned take, ask for a repair, add capacity. From the couch. 🛋️</p><p class="muted">Rentals have an idle cutoff and a max lifetime so nothing keeps billing after I walk away. Which also means the agents need the next job ready <i>before</i> a worker goes idle.</p></div>
   </div>
 </div></section>
