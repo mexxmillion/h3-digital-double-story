@@ -74,6 +74,18 @@ We loosened the demand for an exact expression match and put more emphasis on my
 
 The reference sheet, original portrait, shot-specific prompts, and QC notes all supported that decision. We also tried a face-refinement route on footage whose clothes had already changed. For this edit, full-shot generation with better references and corrected guidance proved the more useful direction.
 
+The routes we tried before the final approach
+
+There were several versions of the idea before this became the workflow we could actually finish with. Early tests were smaller, around 0.7 megapixels with ten steps. They let us see whether the replacement worked before committing to larger images. Later we moved to 1344 by 768 and tested eight steps with the acceleration LoRA. That was a practical production choice, not a claim that fewer steps always make a better image.
+
+We explored a stronger first-frame reference: take the composition of a particular shot, establish my character within it, and use that image alongside my original portrait to guide the moving version. Some scene-specific references helped the model hold onto the setting. Others carried too much of the source actor into the result, or encouraged the wrong crop. The pink studio character sheet gave us a more consistent place to start without making every reference inherit the original face.
+
+We also tried slowing the guidance down, then restoring the generated footage to the original timing. The hope was to give the performance more room to resolve. It also meant generating more frames, waiting longer, and using more memory. The final focused repairs returned to original timing rather than treating a slower guide as the answer to every shot.
+
+A dedicated character-swap LoRA got its own local comparison with and without the extra influence. It did not give us a clear enough improvement in likeness to become the default. Face-only refinement was another attractive idea: keep the good clothes and background, crop the face, regenerate it, and merge it back. Those tests brought their own problems with guidance, pose, glasses, and the join back into the image. For this cut, we went back to replacing the whole shot.
+
+We even tried the original-color video as guidance when the inverted version misbehaved. That improved one take, but in the fast pan it added my character instead of removing the old one. The lesson became very practical: choose the reference and guide that solve this particular shot, and check the mask before asking for another take. We ended with shot-specific prompts, a consistent character sheet plus my portrait, and corrected target masks where the automatic tracking needed help.
+
 Under the hood, the later repairs ran at 1344 by 768 with eight sampling steps and the H3 ACC 8-step LoRA. Reference images were kept compact, up to a 768-pixel edge. OpenRouter-backed prompt tools were part of the setup; prepared prompts could then travel with the jobs without needing another language-model call for every render.
 
 Those settings helped make iteration practical. The creative decisions still came from looking at the takes.
@@ -84,7 +96,23 @@ As the selected shots accumulated, we stitched them back into the original seque
 
 The assembled cut runs 45.25 seconds at 24 frames per second. There are still small differences in lighting, hair, accessories, and facial performance. One dark shot remains brighter than I would ideally want. The visual reviews and audio timing checks were useful, but they are not a claim of perfect lip sync.
 
-This was an experiment with a lot of takes behind it. The surviving job records cover about twelve hours of generation, waiting, review, and iteration across the session; they do not represent twelve hours of continuous rendering or a clean speed benchmark. Adding GPUs gave us capacity. Organizing the work determined how well we used it.
+The scale of this little production
+
+Forty-five seconds sounds small until you count what went into it. The final sequence contains 30 visual shots. We managed them as 29 numbered groups, because the two parts of the hidden cut were joined back into one delivery clip. One woman-only section passed through without replacement.
+
+Across the surviving production records, we submitted 179 jobs and completed 158 renders. Another 18 jobs were cancelled and three ended in a failed state. Those are recorded jobs across tests and earlier versions, not 158 clips in the final cut, and not a complete count of every internal retry or unrecorded experiment.
+
+The most revisited completed shot group was shot 11, with 11 completed takes. Shot 3 had ten completed takes from eleven submissions. Shot 13 had nine completions from twelve submissions. That is what the revision loop looked like in practice: a small number of demanding moments could absorb a lot of the attention.
+
+Across all recorded completed jobs, generation time adds up to 9 hours, 38 minutes and 32 seconds. About 6 hours and 50 minutes of that ran on the local 3090; the rented workers contributed about 2 hours and 48 minutes. These are summed worker generation durations, including loading and output stages, not pure GPU sampling time. Concurrent jobs overlap, so this number is different from time on the clock.
+
+Our peak observed rendering concurrency was two workers. Sometimes that meant two rented 5090s, and later it meant the local card and a cloud worker together. That is the peak supported by the recorded render events, rather than simply counting machines that happened to be rented.
+
+The recorded window from first job creation to last completion was 12 hours, 9 minutes and 41 seconds. It includes preparation, waiting, review, failures, and rework. It does not cover every earlier experiment, and it should not be read as a benchmark for producing any 45-second video.
+
+The rental records give us a rough compute budget, too. At recorded rates of about $0.91 to $1.14 per hour, six rentals total approximately $6.25 when we multiply rate by recorded lifetime. A seventh has conflicting lifetime records: including its uncertain $1.63 would put the modeled subtotal at about $7.87. These are estimates, not invoices. Storage, transfers, image and language-model usage, and my local electricity are outside that figure.
+
+I find those numbers useful because they describe the production I actually directed: a lot of small takes, a few stubborn shots, and a farm whose usefulness depended on what was ready to render next. Adding GPUs gave us capacity. Organizing the work determined how well we used it.
 
 What interests me most is the production method that emerged. I could design a character, direct from my PC or phone, and have agents prepare, dispatch, monitor, and review the work around that direction. The system could handle many of the repetitive steps while I kept making the decisions about who this character was and which performance felt right.
 
