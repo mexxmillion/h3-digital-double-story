@@ -1,0 +1,98 @@
+[
+  {
+    "shot": 13,
+    "source_start": 545,
+    "frames": 12,
+    "title": "Keeping my face and the close framing",
+    "caption": "Rejected: the camera widened, the face remained source-like, and an old cuff survived. Selected: the pink reference sheet helped retain a close view, my fuller face, and bare tattooed arms.",
+    "video": "comparison_13.mp4",
+    "stills": [
+      "comparison_13_frame_002.jpg",
+      "comparison_13_frame_008.jpg"
+    ],
+    "sample_frames": [
+      2,
+      8
+    ]
+  },
+  {
+    "shot": 29,
+    "source_start": 537,
+    "frames": 8,
+    "title": "Replacing the man instead of adding a third actor",
+    "caption": "Rejected: my character appeared between the original performers. Selected: a manually tracked mask targeted only the man on the left; the woman and fast pan stayed intact. The face is motion-blurred, so likeness is less certain than in a close-up.",
+    "video": "comparison_29.mp4",
+    "stills": [
+      "comparison_29_frame_000.jpg",
+      "comparison_29_frame_003.jpg"
+    ],
+    "sample_frames": [
+      0,
+      3
+    ]
+  },
+  {
+    "shot": 20,
+    "source_start": 744,
+    "frames": 21,
+    "title": "Repairing a mask that vanished between frames",
+    "caption": "Rejected: missing masks produced negative-color flashes and surviving source clothes. Selected: filling nine empty masks restored a consistent character and the ducking motion. The selected take is still brighter than the source, with graphics about two frames early.",
+    "video": "comparison_20.mp4",
+    "stills": [
+      "comparison_20_frame_007.jpg",
+      "comparison_20_frame_010.jpg"
+    ],
+    "sample_frames": [
+      7,
+      10
+    ]
+  },
+  {
+    "shot": 28,
+    "source_start": 909,
+    "frames": 14,
+    "title": "Giving both flag hands back to the right person",
+    "caption": "Rejected: the raised arm near the man was attributed to the woman. Selected: both flags belong to the man again, with the woman and background preserved.",
+    "video": "comparison_28.mp4",
+    "stills": [
+      "comparison_28_frame_002.jpg",
+      "comparison_28_frame_008.jpg"
+    ],
+    "sample_frames": [
+      2,
+      8
+    ]
+  },
+  {
+    "shot": 21,
+    "source_start": 765,
+    "frames": 75,
+    "title": "Finding a cut hidden inside a shot",
+    "caption": "Rejected: the woman and drum kit continued into the solo section. Selected: two separate generations meet at local frame 45, preserving the source cut from a duo to a solo performer.",
+    "video": "comparison_21.mp4",
+    "stills": [
+      "comparison_21_frame_040.jpg",
+      "comparison_21_frame_055.jpg"
+    ],
+    "sample_frames": [
+      40,
+      55
+    ]
+  },
+  {
+    "shot": 3,
+    "source_start": 158,
+    "frames": 75,
+    "title": "Removing a floating shape from an otherwise useful take",
+    "caption": "Rejected: a black cloth or limb-like shape appeared behind the man near the left drum toward the end. Selected: that artifact is gone while the woman, glasses handoff, and set remain. Facial expression is more subdued than the source.",
+    "video": "comparison_03.mp4",
+    "stills": [
+      "comparison_03_frame_062.jpg",
+      "comparison_03_frame_070.jpg"
+    ],
+    "sample_frames": [
+      62,
+      70
+    ]
+  }
+]

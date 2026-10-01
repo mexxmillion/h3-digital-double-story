@@ -1,0 +1,91 @@
+Directing My Digital Double With an AI Crew
+
+The idea was simple: put me in the music video.
+
+Keep the camera moves, the energy, the performance, and the woman sharing the scene. Replace the male performer with a version of me that belonged in that world. Give me the sunglasses, the attitude, and a wardrobe I would probably need a very good excuse to wear in real life.
+
+I wanted to test character replacement with my local MiniMax H3 setup. But I also wanted to see how far I could push a small production system around it: a custom dispatcher, rented GPUs when I needed more rendering capacity, and a crew of AI agents helping me get from an idea to a finished sequence.
+
+The result is a 45-second experiment in directing a digital double. Behind it is a process that started to feel surprisingly familiar: character design, shot planning, dailies, notes, and another take.
+
+First I had to decide who was walking into the scene
+
+My first direction was rock star: glasses, leather jackets, a little more flair than everyday me. Then I pushed the design further. One version with a hat felt too cowboy, so I steered it toward Tokyo street style. I tried braids, decided they did not suit me, and came back to my own loose black hair with deliberate silver streaks at the front.
+
+The character settled into a tank top, shorts, tattoos, bracelets, and layered chains. I wanted it to feel like my own styling, rather than a copy of whatever the original performer happened to be wearing.
+
+A character sheet became our costume and hair reference. We needed views with glasses and without them, because the glasses were part of the action in some shots. Later, we put the character against a pink studio background with lighting closer to the video. That gave the model a more useful picture of the world this person was supposed to inhabit.
+
+I kept my original portrait beside that designed character. The styling could be adventurous. The face still had to be mine.
+
+A longer video needs a shot list
+
+An isolated clip is one thing. A longer music-video sequence keeps changing the rules. Suddenly we are at the drums, then sitting on the floor, then close to the camera, then disappearing into a fast pan. The outfit might stay consistent, but the action, framing, and relationship between the performers change at every cut.
+
+We started with a shorter clip and moved to a roughly 45-second version with a similar opening. The system detected cuts and sliced the video into individual shots. Those cuts then needed curation: which shots contained the person to replace, which could reuse an existing take, and which did not need generation at all. A woman-only shot could stay as it was.
+
+Each replacement shot became its own job in my custom H3 workflow. It had a source segment, character references, a description of the action, and instructions about what had to stay. That last part mattered as much as the replacement itself: the woman, the drum kit, the flags, the camera position, the number of people in the room.
+
+This let me direct the sequence one shot at a time. If a close-up lost my likeness, we could work on that close-up without throwing away a good performance somewhere else.
+
+Giving the production an AI crew
+
+Once the jobs multiplied, I needed more than one agent trying to do everything in order. Preparing the next shot, watching the machines, and reviewing a finished take all compete for attention. A rented GPU can finish its work while everyone is still looking at yesterday's problem.
+
+We divided the work into four roles. One coordinating agent kept track of the whole production: my latest direction, the selected takes, and what still needed attention. A preparation agent turned shot notes into prompts, assembled the references and workflow inputs, and dispatched the jobs. A farm-monitoring agent checked whether the machines were actually picking up work, returning results, or failing. A QC agent examined the outputs and sent specific notes back into the process.
+
+That was the agentic harness in practice: a small crew with separate responsibilities, shared production records, and a way to pass work between them. I stayed in the director's seat.
+
+The QC work went down to individual frames on the candidates being considered for the edit. Was my face drifting toward the source actor? Had a bracelet become a sleeve? Did a second man appear at the back? Were the glasses on the right performer? Did the expression still belong to the moment?
+
+Those observations became the next set of notes for the preparation agent. Sometimes the answer was a more specific prompt. Sometimes it was a better reference image. Sometimes the guide itself was wrong, and no amount of persuasive wording would fix it. The next job needed a different input.
+
+A render farm I could direct from my PC and phone
+
+My local RTX 3090 remained part of the production. When I wanted more capacity, I rented RTX 5090 workers and brought them into the same process through PocketAI and Tensor Master, my custom dispatcher setup.
+
+The dispatcher connected the creative work to the available machines. Jobs could go to the local worker or a rented worker using the configured profiles and images. The ComfyUI graphs were still there to inspect, while the dispatch layer handled getting work onto the farm.
+
+I used my PC and phone to monitor progress and direct the agents. I could look at a take and leave the kind of note I would give in an edit session: the face is wrong, keep those glasses, the hair needs to match, that shot is good enough, move on. When more capacity was useful, I could rent another GPU and add it to the production.
+
+It was not effortless. We had idle machines, interrupted jobs, and a full disk that interfered with returning results. Those moments made the monitoring role essential. An available GPU only helps when a useful job is ready for it and the finished footage comes back safely.
+
+The intention was to keep the work moving in parallel: prepare the next takes while the current ones render, review completed takes while other shots are running, and feed the review notes back into the queue.
+
+The takes that taught us how to direct the model
+
+Our replacement workflow used SAM3 to identify the man in the source video and invert the colors inside his mask. That altered video became motion guidance for H3. It helped tell the model where something needed to be redrawn while giving it the movement and composition of the original performance.
+
+Think of the mask as a very literal direction to the model: this is the performer we are changing. If that direction points at the wrong person, the result can be beautifully rendered and completely wrong.
+
+One fast pan made this obvious. The guide was targeting the woman instead of the man on the left. In another attempt, the model kept both original performers and added my character between them. We had accidentally cast a third person. Correcting the mask across that tiny eight-frame shot finally gave us the intended replacement and preserved the pan.
+
+In a darker shot, the target mask disappeared on several frames. The generated character flashed and parts of the original costume survived. Repairing the missing masks produced a much more usable take. This was a useful reminder to inspect what we were feeding the model before writing another elaborate prompt.
+
+There was also a cut hiding inside what we thought was one shot. The source switched from a singer with a female drummer to a solo performer, but the generation carried the woman and drums into the new scene. Once we split the source at that internal cut and generated the two parts separately, the scene made sense again.
+
+These are the comparisons I wanted to keep in the story. The selected take means more when you can see the rejected one beside it and understand the decision that changed it.
+
+Keeping my identity while borrowing a performance
+
+The most delicate direction was about the face. I wanted the expression and singing rhythm to follow the source, but I did not want the model to reconstruct the original actor's mouth, profile, or moustache on top of my character.
+
+We loosened the demand for an exact expression match and put more emphasis on my likeness. That gave us a clearer creative priority: keep me recognizable, preserve the broad performance, and tolerate some variation in the expression.
+
+The reference sheet, original portrait, shot-specific prompts, and QC notes all supported that decision. We also tried a face-refinement route on footage whose clothes had already changed. For this edit, full-shot generation with better references and corrected guidance proved the more useful direction.
+
+Under the hood, the later repairs ran at 1344 by 768 with eight sampling steps and the H3 ACC 8-step LoRA. Reference images were kept compact, up to a 768-pixel edge. OpenRouter-backed prompt tools were part of the setup; prepared prompts could then travel with the jobs without needing another language-model call for every render.
+
+Those settings helped make iteration practical. The creative decisions still came from looking at the takes.
+
+Putting the performance back together
+
+As the selected shots accumulated, we stitched them back into the original sequence and brought the source audio across the full edit. The final pass included the cut boundaries, because a good shot can still make a bad edit if it begins or ends on the wrong frame. We caught a one-frame flash of the source actor that way and corrected it.
+
+The assembled cut runs 45.25 seconds at 24 frames per second. There are still small differences in lighting, hair, accessories, and facial performance. One dark shot remains brighter than I would ideally want. The visual reviews and audio timing checks were useful, but they are not a claim of perfect lip sync.
+
+This was an experiment with a lot of takes behind it. The surviving job records cover about twelve hours of generation, waiting, review, and iteration across the session; they do not represent twelve hours of continuous rendering or a clean speed benchmark. Adding GPUs gave us capacity. Organizing the work determined how well we used it.
+
+What interests me most is the production method that emerged. I could design a character, direct from my PC or phone, and have agents prepare, dispatch, monitor, and review the work around that direction. The system could handle many of the repetitive steps while I kept making the decisions about who this character was and which performance felt right.
+
+The original idea was to put myself in a music video. Along the way, I started building a small studio around the process.
