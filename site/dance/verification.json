@@ -1,0 +1,30 @@
+{
+  "normalized_source_restitch": {
+    "frames": 1023,
+    "fps": 24,
+    "max_pts_error": 3.333333342681044e-07,
+    "decoded_video_frames_identical": true,
+    "packet_audio_identical": true,
+    "decoded_audio_identical": true
+  },
+  "public_full_video_audio_hashes": {
+    "compressed_aac": "SHA256=ab1052dbd31cdbfe830735ad1418c55d74728edaab268d77de66142d24b9afb3",
+    "decoded_pcm": "SHA256=043745944c0a5ed7fd1b0ca8770ea804386007355a2fc4840b45d66c0202bc93"
+  },
+  "public_full_frame_count": 1023,
+  "fps": 24,
+  "cuts": [
+    322,
+    579,
+    927
+  ],
+  "timebase": "zero-based24fps; exclusive end boundaries",
+  "web_export": "Video reencoded for web; full final/comparison AAC streams copied unchanged. Other previews can use source excerpts. Visual comparisons are sampled human review, not a quality score.",
+  "take1_generation_seconds": 3015.9,
+  "middle_generation_seconds": 2047.7,
+  "limitations": [
+    "Small identity/expression/hand/partner deviations remain",
+    "No isolated ablation of prompt correction versus pose guides",
+    "Long-context adaptation rejected for source choreography drift"
+  ]
+}

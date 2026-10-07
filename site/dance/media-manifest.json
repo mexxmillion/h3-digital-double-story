@@ -1,0 +1,138 @@
+[
+  {
+    "asset": "media/final.mp4",
+    "provenance": "Dance_full_take1_motion_repair_original_audio.mp4",
+    "video": {
+      "width": 640,
+      "height": 1120,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "1023"
+    },
+    "bytes": 13492983,
+    "sha256": "1e9292de7bf74e57721612c9016858013c020a0a7e3a011e6dd34f30b1996133"
+  },
+  {
+    "asset": "media/source-final.mp4",
+    "provenance": "Source_vs_Result_full_take1_motion_repair.mp4",
+    "video": {
+      "width": 960,
+      "height": 840,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "1023"
+    },
+    "bytes": 14079053,
+    "sha256": "bd685aed3a3f4dfe14515ddb29f785d5d6cd7ab73aaf1daaf70f8a82ad013b08"
+  },
+  {
+    "asset": "media/source-restitch.mp4",
+    "provenance": "Source_restitch_original_audio.mp4",
+    "video": {
+      "width": 480,
+      "height": 840,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "1023"
+    },
+    "bytes": 7114772,
+    "sha256": "c628204bcded72fb418ebf0d43cac3f7062be65723f3b4605314c2c8f4cf4da1"
+  },
+  {
+    "asset": "media/focus-7-13.mp4",
+    "provenance": "Source_vs_New_7to13.mp4",
+    "video": {
+      "width": 960,
+      "height": 840,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "144"
+    },
+    "bytes": 2331763,
+    "sha256": "263d05202bc5f41ea44ea83b235a45249b0a9d96ea6a6d7bc695b83103effd85"
+  },
+  {
+    "asset": "media/seam-one.mp4",
+    "provenance": "Transition_322_Source_vs_Result.mp4",
+    "video": {
+      "width": 960,
+      "height": 840,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "96"
+    },
+    "bytes": 1831505,
+    "sha256": "cc170222d5490870e8b9205559840b9981999737ee3edbdeea0e6f6ef21a20bf"
+  },
+  {
+    "asset": "media/seam-two.mp4",
+    "provenance": "Transition_579_Source_vs_Result.mp4",
+    "video": {
+      "width": 960,
+      "height": 840,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "96"
+    },
+    "bytes": 1393978,
+    "sha256": "941fe07ad630a7d2af2327eeb927f411130934cbc9e666b789f294d96c42bd68"
+  },
+  {
+    "asset": "media/inverted-depth.mp4",
+    "provenance": "Source_Inverted_Depth.mp4",
+    "video": {
+      "width": 960,
+      "height": 560,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "273"
+    },
+    "bytes": 3410510,
+    "sha256": "0b7b82b3162e5ccc03dd6a2bc17fe5c26d1c0eb86fc0f57a5224e147ec60f613"
+  },
+  {
+    "asset": "media/protected-overlap.mp4",
+    "provenance": "Source_Independent_Protected.mp4",
+    "video": {
+      "width": 960,
+      "height": 560,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "209"
+    },
+    "bytes": 2653776,
+    "sha256": "e173ae0b22969952112e38ad9b97da1208da2bf5b96f48e8245ec47375e27914"
+  },
+  {
+    "asset": "media/take1-source-old-new.mp4",
+    "provenance": [
+      "source_24fps.mp4",
+      "selected_cut.mp4",
+      "result.mp4"
+    ],
+    "source_frames": [
+      168,
+      312
+    ],
+    "silent": true,
+    "video": {
+      "width": 960,
+      "height": 560,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "144"
+    },
+    "bytes": 2339261
+  },
+  {
+    "asset": "media/middle-source-old-new.mp4",
+    "provenance": [
+      "cut2_source_lossless.mp4",
+      "selected_cut.mp4",
+      "result.mp4"
+    ],
+    "source_frames": [
+      0,
+      257
+    ],
+    "silent": true,
+    "video": {
+      "width": 960,
+      "height": 560,
+      "r_frame_rate": "24/1",
+      "nb_read_frames": "257"
+    },
+    "bytes": 4462049
+  }
+]
