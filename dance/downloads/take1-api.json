@@ -1,0 +1,402 @@
+{
+  "2": {
+    "class_type": "MiniMaxH3ReferencePack",
+    "inputs": {
+      "direction": "subject_definitions:\n<Picture 1> is the ONLY identity image reference: a nine-panel character sheet of ONE adult man. The six upper panels show the same face from the front, side, chin-up front and chin-up three-quarter angles, with closed-mouth and teeth-showing smiles. Use the angle nearest each source head orientation to maintain his own nose, cheek volume, jaw, chin, lips, eye shape, sparse moustache and chin stubble, skin tone and thick tousled wavy black hair. The bottom three panels are HEADLESS wardrobe-only views for the SAME man, from front, side and back. These define clothing only. The actual dancer must retain a complete natural head defined by the six upper face views. Never generate a headless dancer. Wardrobe: white long-sleeved open-collar shirt tucked into dark charcoal tailored trousers, black belt and black leather shoes. All nine panels are one person, never nine performers. No collage, panel borders, captions or gray studio background appear in the output. <Subject 1> is ONLY the male dancer in <Video 1>. The sheet defines identity and wardrobe, not a fixed smile or pose. <Video 1> alone defines choreography, camera, gaze direction, eyelid movement, blinks, brow movement and changing mouth expression at the original times. Reinterpret that performance through the sheet man's facial anatomy. Use a closed or relaxed mouth when the source does; show teeth only when the source does. Do not impose the sheet's teeth smile, squint or chin-up pose. Keep his exact source head size and body proportions, and preserve his recognizable reference facial proportions after turns and occlusions. Do not inherit the source man's identity, narrow nose or short hair. The female partner retains her source identity, hair and clothing.\nsummary:\n[replacement] Replace only the male dancer with the recognizable reference man, dressed elegantly in a white shirt and dark tailored trousers, following the existing partner dance at its original speed.\nretention_analysis:\npartially_preserved: Male appearance and clothing are replaced. fully_preserved: Female partner, her face and hair, white cropped top and gray jeans, other spectators, street lighting, trees, buildings, wooden floor, camera, framing, contacts, occlusions and choreography from <Video 1>.\ndetailed_description:\n[Shot 1] This is source seconds 0 to 13.416667 of the same outdoor night dance. Preserve the source opening pose and every subsequent turn, handhold, embrace and dip at the original speed. Maintain the replacement face, hair and wardrobe defined in <Picture 1> without changing the female partner. Replace the male dancer's head and body appearance using the face and hair in the six upper views of <Picture 1> and the wardrobe in the bottom three views. Follow exactly the source dance movement, partner turns, handholds, arm crossings, body placement and original camera movement through this shot. Preserve the source man's head size, head-to-body ratio and position in screen pixels. Match the male dancer's evolving facial performance from <Video 1>, reinterpreted through the replacement man's own facial anatomy. Preserve the source timing of eye contact with his partner, downward glances during footwork, gaze shifts with head turns, eyelid opening, natural brief blinks, brow movement, cheek lift and changes in mouth opening and smile. Eyes are responsive and naturally focused, with visible pupils and scene-matched catchlights when the viewing angle allows. Preserve intentional source blinks and closed-eye moments; do not force eyes wide open or a constant grin. His expression flows naturally between focused concentration and the source's subtle smiles and reactions to his partner. Let the mouth relax when the source mouth relaxes; do not freeze any sheet expression. Preserve the timing and intensity of these small changes instead of painting a single expression on every frame. Keep natural facial muscle movement coordinated with gaze, head motion and breathing. No blank stare, waxy face, fixed squint, permanent pout, exaggerated acting or artificial eye shine. The replacement has the reference man's broad softly rounded nose with a rounded tip and natural nostril width, full rounded cheeks, softly defined jaw and rounded chin, naturally full lips, medium warm skin tone, sparse moustache and chin stubble, and thick tousled long wavy black hair falling over his forehead. Preserve these reference facial proportions relative to each other at the original source head size. Do not inherit the source dancer's narrower nose, facial silhouette, clean-shaven skin or short hairstyle. Do not copy any sheet panel's fixed smile, squint or head tilt; the eyes, eyelids, brows, cheeks and lips animate with the source performance. Preserve the replacement man's recognizable nose, jaw, cheeks and lips; transfer performance, never the source actor's identity. The female dancer and all spectators retain their original identities and clothes. Hands and arms retain correct partner ownership and source occlusion order. The target man alone has inverted colors in the guide: restore natural skin and white shirt colors under the original warm night lighting. No inverted skin, outlines or pasted portrait head. No extra people, scene cuts or studio background. Preserve natural photographic realism and original motion timing. Do not slow or extend actions for padded tail frames.\noverall_soundscape:\nPreserve the original source recording, voices and ambient sound with unchanged timing. No new dialogue, sound effects or voice.\nnon_diegetic_music:\nPreserve the original music and beat timing from <Video 1>; do not compose or replace the soundtrack.\nTemporal pose requirements: Follow the source at every timestamp without inventing choreography. At 7 and 8 seconds the woman is upright with her arm raised; preserve the exact source handhold and arm ownership. At 9 through 11 seconds continue the upright source steps and hand movement. At 11 seconds the woman remains upright with her arm forward: do not invent a side dip, bow or lean. Only turn or lean at the time shown by the source. The supplied guide keyframes are pose and continuity constraints, not extra identity references; the six face panels remain authoritative for the replacement identity. End at the supplied frame321 pose so the existing next segment continues naturally. Do not freeze at guides or stretch actions to fill tail padding.",
+      "references_json": "{\"references\": [{\"kind\": \"image\", \"file\": \"h3_mobile/dance_case_study/take1/reference_sheet.png\"}, {\"kind\": \"video\", \"file\": \"h3_mobile/dance_case_study/take1/guide_padded.mp4\", \"use_soundtrack\": true}]}",
+      "prompt_provider": "none",
+      "max_reference_edge": 1280,
+      "width": 640,
+      "height": 1120,
+      "length_seconds": 13.416666666666666,
+      "job_type": "replacement"
+    }
+  },
+  "9": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "h3ErosMax_beta5.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "11": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "H3\\qwen3vl_32b_h3_ultra_uncensored_heretic_int8_convrot.safetensors",
+      "type": "minimax",
+      "device": "default"
+    }
+  },
+  "12": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_video_vae_int8_convrot.safetensors"
+    }
+  },
+  "13": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "minimax_h3_audio_vae_fp32.safetensors"
+    }
+  },
+  "14": {
+    "class_type": "MiniMaxH3ReferenceToVideo",
+    "inputs": {
+      "clip": [
+        "11",
+        0
+      ],
+      "prompt": [
+        "2",
+        18
+      ],
+      "width": 640,
+      "height": 1120,
+      "length": 328,
+      "ref_image_size": "match",
+      "vae": [
+        "12",
+        0
+      ],
+      "audio_vae": [
+        "13",
+        0
+      ],
+      "ref_images.ref_image_0": [
+        "2",
+        0
+      ],
+      "ref_videos.ref_video_0": [
+        "2",
+        9
+      ],
+      "ref_video_audios.ref_video_audio_0": [
+        "2",
+        12
+      ]
+    }
+  },
+  "15": {
+    "class_type": "MiniMaxH3NativeAudioLock",
+    "inputs": {
+      "model": [
+        "38",
+        0
+      ],
+      "av_latent": [
+        "14",
+        1
+      ],
+      "audio_vae": [
+        "13",
+        0
+      ],
+      "audio": [
+        "2",
+        12
+      ]
+    }
+  },
+  "16": {
+    "class_type": "BasicGuider",
+    "inputs": {
+      "model": [
+        "15",
+        0
+      ],
+      "conditioning": [
+        "49",
+        0
+      ]
+    }
+  },
+  "17": {
+    "class_type": "RandomNoise",
+    "inputs": {
+      "noise_seed": 100403
+    }
+  },
+  "18": {
+    "class_type": "KSamplerSelect",
+    "inputs": {
+      "sampler_name": "er_sde"
+    }
+  },
+  "19": {
+    "class_type": "BasicScheduler",
+    "inputs": {
+      "model": [
+        "15",
+        0
+      ],
+      "scheduler": "beta57",
+      "steps": 8,
+      "denoise": 1.0
+    }
+  },
+  "20": {
+    "class_type": "SamplerCustomAdvanced",
+    "inputs": {
+      "noise": [
+        "17",
+        0
+      ],
+      "guider": [
+        "16",
+        0
+      ],
+      "sampler": [
+        "18",
+        0
+      ],
+      "sigmas": [
+        "19",
+        0
+      ],
+      "latent_image": [
+        "15",
+        1
+      ]
+    }
+  },
+  "21": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "20",
+        0
+      ],
+      "vae": [
+        "12",
+        0
+      ]
+    }
+  },
+  "22": {
+    "class_type": "ImageFromBatch",
+    "inputs": {
+      "image": [
+        "21",
+        0
+      ],
+      "batch_index": 0,
+      "length": 322
+    }
+  },
+  "24": {
+    "class_type": "VHS_VideoCombine",
+    "inputs": {
+      "images": [
+        "22",
+        0
+      ],
+      "audio": [
+        "2",
+        12
+      ],
+      "frame_rate": 24.0,
+      "loop_count": 0,
+      "filename_prefix": "dance_case_study/take1",
+      "format": "video/h264-mp4",
+      "pingpong": false,
+      "save_output": true,
+      "pix_fmt": "yuv420p",
+      "crf": 16,
+      "save_metadata": true,
+      "trim_to_audio": false
+    }
+  },
+  "34": {
+    "class_type": "LoraLoaderModelOnly",
+    "inputs": {
+      "model": [
+        "9",
+        0
+      ],
+      "lora_name": "fasth3_vsa_gate.safetensors",
+      "strength_model": 0.75
+    }
+  },
+  "35": {
+    "class_type": "MiniMaxH3SigmaShift",
+    "inputs": {
+      "model": [
+        "34",
+        0
+      ],
+      "shift_video": 12.0,
+      "shift_audio": 3.0
+    }
+  },
+  "36": {
+    "class_type": "MiniMaxChunkFeedForward",
+    "inputs": {
+      "model": [
+        "35",
+        0
+      ],
+      "chunks": 8,
+      "seq_threshold": 4096
+    }
+  },
+  "37": {
+    "class_type": "MiniMaxLowVRAMAttention",
+    "inputs": {
+      "model": [
+        "36",
+        0
+      ],
+      "head_chunks": 4
+    }
+  },
+  "38": {
+    "class_type": "ModelAttentionBackend",
+    "inputs": {
+      "model": [
+        "37",
+        0
+      ],
+      "attention": "comfy kitchen attention"
+    }
+  },
+  "40": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3_mobile/dance_case_study/take1/anchor_0.png"
+    }
+  },
+  "41": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "14",
+        0
+      ],
+      "latent": [
+        "14",
+        1
+      ],
+      "vae": [
+        "12",
+        0
+      ],
+      "image": [
+        "40",
+        0
+      ],
+      "frame_idx": 0
+    }
+  },
+  "42": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3_mobile/dance_case_study/take1/anchor_144.png"
+    }
+  },
+  "43": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "41",
+        0
+      ],
+      "latent": [
+        "14",
+        1
+      ],
+      "vae": [
+        "12",
+        0
+      ],
+      "image": [
+        "42",
+        0
+      ],
+      "frame_idx": 144
+    }
+  },
+  "44": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3_mobile/dance_case_study/take1/anchor_192.png"
+    }
+  },
+  "45": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "43",
+        0
+      ],
+      "latent": [
+        "14",
+        1
+      ],
+      "vae": [
+        "12",
+        0
+      ],
+      "image": [
+        "44",
+        0
+      ],
+      "frame_idx": 192
+    }
+  },
+  "46": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3_mobile/dance_case_study/take1/anchor_264.png"
+    }
+  },
+  "47": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "45",
+        0
+      ],
+      "latent": [
+        "14",
+        1
+      ],
+      "vae": [
+        "12",
+        0
+      ],
+      "image": [
+        "46",
+        0
+      ],
+      "frame_idx": 264
+    }
+  },
+  "48": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "h3_mobile/dance_case_study/take1/anchor_321.png"
+    }
+  },
+  "49": {
+    "class_type": "MiniMaxH3AddGuide",
+    "inputs": {
+      "positive": [
+        "47",
+        0
+      ],
+      "latent": [
+        "14",
+        1
+      ],
+      "vae": [
+        "12",
+        0
+      ],
+      "image": [
+        "48",
+        0
+      ],
+      "frame_idx": 321
+    }
+  }
+}
